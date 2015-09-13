@@ -1,0 +1,32 @@
+Name: {{name}}
+
+<!-- log的第一个参数指向name,  最后一个参数指向options -->
+<!-- 如果这里没有传name, 则log的第一个参数指向options, 第二个参数无效 -->
+{{log name}}
+
+<!-- 规则同上 -->
+
+{{#log2 blogs}}
+
+    <!-- 这里blogs参数无效，因为当前的context为blogs, blogs是个数组不存在blogs属性 -->
+    {{#log2 blogs}}
+        {{log data.user }}
+    {{/log2}}
+
+    <!-- 这个块中的this的值，是由log2的实现决定的，log2最后一行options.fn(context)中的context参数决定了这里this -->
+    <!-- 因为log2的最后一行将context设置为blogs， 所以此处的this指向blogs, ../this指向user) -->
+    {{log ../this}}
+
+    {{log this.[0]}}
+
+    {{#with this.[0].comments}}
+        <!-- 这个块中的this指向with指向的内容 -->
+        {{log}}
+    {{/with}}
+
+{{/log2}}
+
+{{#each blogs}}
+    <!-- 这里是包含partial的语法，partial就是子模板的意思, partial不会构成新的block expression, 效果和把blog.hbs模板的内容写到这里一样 -->
+    {{> blog}}
+{{/each}}
