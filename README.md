@@ -1,7 +1,14 @@
 ##Handlebars 测试
-1. hbs_inlined不使用预编译技术，需要包含完整的handlebars.js
+1. hbs_inlined_dotdot.html这个是最新添加的例子
+解决了我对..的疑惑.
+运行这个文件可以查看..到底指向哪
+1）if 不改变scope可能直接无视
+2) 一个with是一个scope，不管with中写的是什么。
+3）每一层的this指向}}所在的位置
 
-2. hbs_precompiled.html只需要包含handlebars runtime.
+2. hbs_inlined不使用预编译技术，需要包含完整的handlebars.js
+
+3. hbs_precompiled.html只需要包含handlebars runtime.
 
 ##How to precompile
 

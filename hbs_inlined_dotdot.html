@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="lib/assets/jquery-2.1.4.js"></script>
+    <script src="lib/assets/handlebars-v4.0.2.js"></script>
+    <script src="lib/hbs-helpers.js"></script>
+</head>
+<body>
+Object:
+<pre>
+
+    var view = {
+        name: 'view',
+        collection: {
+            name: 'collection',
+            models: [
+                {
+                    name: 'models[0]',
+                    meta: {
+                        name: 'meta',
+                        panels: {
+                            name: 'panels',
+                            fields: [{name: 'fields[0]'}, {name: 'fields[1]'}]
+                        }
+                     }
+                },
+
+                {name: 'models[1]'}
+            ]
+        }
+    };
+
+</pre>
+
+Template:
+<pre>
+    {{#with collection.models.[0]}}
+        {{#meta.panels}}
+            {{#with fields.[0]}}
+                    THIS
+</pre>
+
+Result:
+<script type="text/x-handlebars-template" id="template-view">
+    {{#with collection.models.[0]}}
+        {{#meta.panels}}
+            {{#with fields.[0]}}
+                <ol>
+                    <li>this: {{this.name}}</li>
+                    <li>../this: {{../this.name}}</li>
+                    <li>../../this: {{../../this.name}}</li>
+                    <li>../../../this: {{../../../this.name}}</li>
+
+
+            {{/with}}
+        {{/meta.panels}}
+
+
+    {{/with}}
+</script>
+
+<script type="text/javascript">
+    var view = {
+        name: 'view',
+        size: 30,
+        collection: {
+            name: 'collection',
+            models: [
+                {
+                    name: 'models[0]',
+                    meta: {
+                        name: 'meta',
+                        panels: {
+                            name: 'panels',
+                            fields: [{name: 'fields[0]'}, {name: 'fields[1]'}]
+                        }
+                     }
+                },
+
+                {name: 'models[1]'}
+            ]
+        }
+    };
+
+    //编译模块
+    var template = Handlebars.compile($('#template-view').html());
+
+    //执行
+
+    $('body').append(template(view));
+
+</script>
+
+</body>
+</html>
